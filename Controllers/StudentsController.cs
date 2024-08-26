@@ -30,7 +30,13 @@ namespace StudentsCoursCesi.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(Students students)
         {
-            students = await _studentsService.AddStudentsAsync(students);
+            Students newStudent = new Students
+            {
+                Email = students.Email,
+                Name = students.Name
+            };
+
+            await _studentsService.AddStudentsAsync(newStudent);
             return RedirectToAction(nameof(List));
 
         }

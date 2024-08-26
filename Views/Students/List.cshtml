@@ -4,7 +4,7 @@
 @{
 }
 
-@model StudentsCoursCesi.Models.ViewModels.StudentsViewModel
+@model List<StudentsCoursCesi.Models.Entities.Students>
 
 <html>
     <head>
@@ -13,14 +13,20 @@
 	<body>
         <h1>List of Students</h1>
 	</body>
-
+	<table class="table">
     <thead>
         <tr>
+			<th>
+				ID
+			</th>
 			<th>
 				Name
 			</th>
 			<th>
 				Email
+			</th>
+			<th>
+				Actions
 			</th>
 		</tr>
     </thead>
@@ -29,16 +35,16 @@
 		{
 			<tr>
 				<td>
+					@student.Id
+				</td>
+				<td>
 					@student.Name
 				</td>
 				<td>
 					@student.Email
 				</td>
-				<td>
-					<a asp-action="Edit" asp-route-id="@student.Id">Edit</a> |
-					<a asp-action="Delete" asp-route-id="@student.Id">Delete</a>
-				</td>
 			</tr>
 		}
 	</tbody>
+</table>
 </html>
