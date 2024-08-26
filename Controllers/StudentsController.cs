@@ -41,5 +41,30 @@ namespace StudentsCoursCesi.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var student = await _studentsService.GetStudentsByIdAsync(id);
+            return View(student);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(Students students)
+        {
+            await _studentsService.UpdateStudentsAsync(students);
+            return RedirectToAction(nameof(List));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var student = await _studentsService.GetStudentsByIdAsync(id);
+            return View(student);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(Students students)
+        {
+            await _studentsService.DeleteStudentsAsync(students);
+            return RedirectToAction(nameof(List));
+        }
     }
 }
