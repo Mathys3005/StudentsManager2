@@ -43,6 +43,10 @@
 				<td>
 					@student.Email
 				</td>
+				<td>
+				<div class="mt-3" display ="flex">
+					<a href="@Url.Action("Edit", "Students", new { id = @student.Id })" class="btn btn-primary">Edit</a>
+				</div>
 			</tr>
 		}
 	</tbody>
