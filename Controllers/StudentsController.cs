@@ -1,6 +1,7 @@
 ﻿using StudentsCoursCesi.Services.StudentsService;
 using StudentsCoursCesi.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace StudentsCoursCesi.Controllers
@@ -22,18 +23,22 @@ namespace StudentsCoursCesi.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+		[Authorize]
+		public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Students students)
+		[Authorize]
+		public async Task<IActionResult> Add(Students students)
         {
             Students newStudent = new Students
             {
                 Email = students.Email,
-                Name = students.Name
+                UserName = students.UserName,
+                FirstName = students.FirstName,
+                LastName = students.LastName
             };
 
             await _studentsService.AddStudentsAsync(newStudent);
@@ -42,26 +47,29 @@ namespace StudentsCoursCesi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             var student = await _studentsService.GetStudentsByIdAsync(id);
             return View(student);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Students students)
+		public async Task<IActionResult> Edit(Students students)
         {
             await _studentsService.UpdateStudentsAsync(students);
             return RedirectToAction(nameof(List));
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+		[Authorize]
+		public async Task<IActionResult> Delete(int id)
         {
             var student = await _studentsService.GetStudentsByIdAsync(id);
             return View(student);
         }
         [HttpPost]
-        public async Task<IActionResult> Delete(Students students)
+		[Authorize]
+		public async Task<IActionResult> Delete(Students students)
         {
             await _studentsService.DeleteStudentsAsync(students);
             return RedirectToAction(nameof(List));

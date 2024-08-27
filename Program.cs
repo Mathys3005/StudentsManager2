@@ -2,6 +2,7 @@ using StudentsCoursCesi.Services.StudentsService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StudentsCoursCesi.Data;
+using StudentsCoursCesi.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,7 @@ builder.Services.AddDbContext<StudentsContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<StudentsContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IStudentsService, StudentsService>();
